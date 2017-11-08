@@ -7,6 +7,8 @@ import (
 	"github.com/sigma-dev/sigma/model"
 )
 
+var p *model.Plugin
+
 // skeleton how to create memdb for sigma
 func main() {
 
@@ -21,18 +23,17 @@ func main() {
 
 	// EXAMPLE - INSERT
 	txn := db.Txn(true)
-	p := &model.Plugin{
-		MetaImpl:    model.NewMeta("pluginID", "pluginName"),
-		Summary:     "pluginSummary",
-		Description: "pluginDescription",
-		Maintainer:  "pluginMaintainer",
-		Version:     "pluginVersion",
+	p = &model.Plugin{
+		MetaImpl:    model.NewMeta("coldID", "coldName"),
+		Summary:     "it's cold",
+		Description: "more about how it's cold",
+		Maintainer:  "meegan",
+		Version:     "0.1",
 		Vars: map[string]model.PluginVar{
-			"var1": model.PluginVar{
-				Description: "varDesc",
-				Summary:     "varSummary",
-				Type:        "string",
-				Default:     "helloworld",
+			"temperature": model.PluginVar{
+				Summary: "degrees",
+				Type:    "int",
+				Default: 32,
 			},
 		},
 		Requirements: []model.PluginReq{
@@ -53,15 +54,20 @@ func main() {
 	// EXAMPLE  - GET
 	txn = db.Txn(false)
 	defer txn.Abort()
-	raw, err := txn.First("plugin", "id", "testimage:1.0")
+	raw, err := txn.First("plugin", "id", "coldID")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", raw.(*model.Plugin).Container)
+	fmt.Printf("%#v\n", raw.(*model.Plugin))
 }
 
-// Pain. Have to copy the whole sigma object definition into here
+// Have to copy the whole sigma object definition into here #wow
 func createSchema() *memdb.DBSchema {
+
+	// Extract object subfield (MetaImpl.MetaID) to use as the required id index
+	idIndex := &memdb.StringFieldIndex{Field: "MetaImpl.MetaID"}
+	idIndex.FromObject(p)
+
 	return &memdb.DBSchema{
 		Tables: map[string]*memdb.TableSchema{
 			"plugin": &memdb.TableSchema{
@@ -69,6 +75,11 @@ func createSchema() *memdb.DBSchema {
 				Indexes: map[string]*memdb.IndexSchema{
 					"id": &memdb.IndexSchema{
 						Name:    "id",
+						Unique:  true,
+						Indexer: idIndex,
+					},
+					"Container": &memdb.IndexSchema{
+						Name:    "Container",
 						Unique:  true,
 						Indexer: &memdb.StringFieldIndex{Field: "Container"},
 					},
