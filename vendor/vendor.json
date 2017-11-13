@@ -3,6 +3,54 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "1TUqo683ELtWtgyNJ8UMtdGyg/Y=",
+			"path": "github.com/asdine/storm",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "KXHP3AdJVnDxab4J2mDknFi8SPQ=",
+			"path": "github.com/asdine/storm/codec",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "8B9a1JXYnmmzo353mN/z9MgKa2M=",
+			"path": "github.com/asdine/storm/codec/json",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "4rTcDz7pdt2RZFBenzBnGwKLTzQ=",
+			"path": "github.com/asdine/storm/index",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "LMnZpZkByrbOTE0xCX7oOD6ku8Y=",
+			"path": "github.com/asdine/storm/internal",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "xMrnqVXOk2L7vjtsMYfE73n+tKM=",
+			"path": "github.com/asdine/storm/q",
+			"revision": "617fe4aad8735e47f878c39a597ec135963d1d79",
+			"revisionTime": "2017-09-13T20:26:17Z"
+		},
+		{
+			"checksumSHA1": "Ac0sHflTyYX4PmgBEJ+POSTyd5o=",
+			"path": "github.com/boltdb/bolt",
+			"revision": "fa5367d20c994db73282594be0146ab221657943",
+			"revisionTime": "2017-09-07T20:20:52Z"
+		},
+		{
+			"checksumSHA1": "nI8v23vva3nBBQ+ajT+9g5/KHIs=",
+			"path": "github.com/coreos/bbolt",
+			"revision": "3c6cbfb299c11444eb2f8c9d48f0d2ce09157423",
+			"revisionTime": "2017-11-01T01:10:58Z"
+		},
+		{
 			"checksumSHA1": "Cas2nprG6pWzf05A2F/OlnjUu2Y=",
 			"path": "github.com/hashicorp/go-immutable-radix",
 			"revision": "8aac2701530899b64bdea735a1de8da899815220",
@@ -19,6 +67,16 @@
 			"path": "github.com/hashicorp/golang-lru/simplelru",
 			"revision": "0a025b7e63adc15a622f29b0b2c4c3848243bbf6",
 			"revisionTime": "2016-08-13T22:13:03Z"
+		},
+		{
+			"checksumSHA1": "r1jWq0V3AI5DLN0aCnXXMH/is9Q=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "1e2299c37cc91a509f1b12369872d27be0ce98a6",
+			"revisionTime": "2017-11-09T13:50:42Z"
+		},
+		{
+			"path": "https://github.com/coreos/bbolt",
+			"revision": ""
 		}
 	],
 	"rootPath": "github.com/meganokeefe/memdb-playground"
