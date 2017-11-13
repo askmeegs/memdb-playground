@@ -4,9 +4,6 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
-
 	bolt "github.com/coreos/bbolt"
 )
 
@@ -19,72 +16,65 @@ type MemDB struct {
 	D *bolt.DB
 }
 
-type Vacation struct {
-	Cost          float64
-	Kind          string
-	International bool
-	PackingList   []string
-}
-
-func main() {
-	// Create a Memdb
-	mdb, err := New()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Put a generic struct in there
-	v := Vacation{
-		Cost:          314.15,
-		Kind:          "backpacking",
-		International: true,
-		PackingList:   []string{"backpack", "boots", "compass", "map", "train pass"},
-	}
-
-	vBytes, err := json.Marshal(v)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = mdb.Upsert("EuropeAdventure", vBytes)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//overwrite
-	v.Cost = 1000.01
-	vBytes, err = json.Marshal(v)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = mdb.Upsert("EuropeAdventure", vBytes)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	output, err := mdb.Get("EuropeAdventure")
-	if err != nil {
-		log.Fatal(err)
-	}
-	var gotV Vacation
-	err = json.Unmarshal(output, &gotV)
-	log.Printf("AFTER GET, SUCCESSFULLY GOT OUTPUT: \n %#v \n", gotV)
-
-	// Delete then get
-	err = mdb.Delete("EuropeAdventure")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var postDel Vacation
-	output, err = mdb.Get("EuropeAdventure")
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = json.Unmarshal(output, &postDel)
-	log.Printf("AFTER DELETE, SUCCESSFULLY GOT OUTPUT: \n %#v \n", gotV)
-
-}
+// func main() {
+// 	// Create a Memdb
+// 	mdb, err := New()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+//
+// 	// Put a generic struct in there
+// 	v := Vacation{
+// 		Cost:          314.15,
+// 		Kind:          "backpacking",
+// 		International: true,
+// 		PackingList:   []string{"backpack", "boots", "compass", "map", "train pass"},
+// 	}
+//
+// 	vBytes, err := json.Marshal(v)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+//
+// 	err = mdb.Upsert("EuropeAdventure", vBytes)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+//
+// 	//overwrite
+// 	v.Cost = 1000.01
+// 	vBytes, err = json.Marshal(v)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	err = mdb.Upsert("EuropeAdventure", vBytes)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+//
+// 	output, err := mdb.Get("EuropeAdventure")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	var gotV Vacation
+// 	err = json.Unmarshal(output, &gotV)
+// 	log.Printf("AFTER GET, SUCCESSFULLY GOT OUTPUT: \n %#v \n", gotV)
+//
+// 	// Delete then get
+// 	err = mdb.Delete("EuropeAdventure")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+//
+// 	var postDel Vacation
+// 	output, err = mdb.Get("EuropeAdventure")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	err = json.Unmarshal(output, &postDel)
+// 	log.Printf("AFTER DELETE, SUCCESSFULLY GOT OUTPUT: \n %#v \n", gotV)
+//
+// }
 
 func New() (*MemDB, error) {
 	db, err := bolt.Open("sigma.mem.db", 0600, nil)
